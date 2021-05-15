@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views.generic.base import View
 
-from bookshelf.forms import PublisherForm
+from bookshelf.forms import PublisherForm, AuthorForm
 from bookshelf.models import Author, Publisher
 
 
@@ -17,13 +17,17 @@ class IndexView(View):
 class AuthorCreateView(View):
 
     def get(self, request):
-        return render(request, 'author_add.html')
+        form = AuthorForm()
+        return render(request, 'form.html', {'form':form})
 
     def post(self, request):
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        Author.objects.create(first_name=first_name, last_name=last_name)
-        return redirect('authors')
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            Author.objects.create(first_name=first_name, last_name=last_name)
+            return redirect('authors')
+        return render(request, 'form.html', {'form':form})
 
 
 class AuthorListView(View):
