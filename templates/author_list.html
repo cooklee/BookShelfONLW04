@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block zawartosc %}
+    <ul>
+        {% for author in authors %}
+            <li>{% include 'author_detail_list.html' with osoba=author %}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
