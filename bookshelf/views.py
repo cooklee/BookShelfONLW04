@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views.generic.base import View
 
-from bookshelf.forms import PublisherForm, AuthorForm
+from bookshelf.forms import PublisherForm, AuthorForm, BookForm
 from bookshelf.models import Author, Publisher
 
 
@@ -51,5 +51,16 @@ class PublisherCreateView(View):
             Publisher.objects.create(name=name, city=city)
             return HttpResponse("Its OK")
         return render(request, 'form.html', {'form': form})
-        # Author.objects.create(first_name=first_name, last_name=last_name)
-        # return redirect('authors')
+
+class BookCreateView(View):
+
+    def get(self, request):
+        form = BookForm()
+        return render(request, 'form.html', {'form': form})
+
+    def post(self, request):
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Its OK")
+        return render(request, 'form.html', {'form': form})

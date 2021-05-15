@@ -13,3 +13,10 @@ class Author(models.Model):
 class Publisher(models.Model):
     name = models.CharField(max_length=64)
     city = models.CharField(max_length=64)
+
+class Book(models.Model):
+    title = models.CharField(max_length=64)
+    year = models.IntegerField()
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    a = models.IntegerField()

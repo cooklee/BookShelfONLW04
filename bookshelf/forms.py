@@ -1,6 +1,8 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
+from bookshelf.models import Book
+
 
 def check_if_first_is_big(value):
     if value[0].isupper():
@@ -23,3 +25,10 @@ class AuthorForm(forms.Form):
         if len(data.get('first_name', ''))+len(data.get('last_name', ''))> 6:
             raise ValidationError("Hola hola wstrzymaj konie max 6 znaków")
         return data
+
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = "__all__"
+
