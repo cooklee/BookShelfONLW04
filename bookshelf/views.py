@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.base import View
 
 from bookshelf.forms import PublisherForm
-from bookshelf.models import Author
+from bookshelf.models import Author, Publisher
 
 
 class IndexView(View):
@@ -39,8 +39,13 @@ class PublisherCreateView(View):
         form = PublisherForm()
         return render(request, 'form.html', {'form':form})
 
-    # def post(self, request):
-    #     first_name = request.POST.get('first_name')
-    #     last_name = request.POST.get('last_name')
-    #     Author.objects.create(first_name=first_name, last_name=last_name)
-    #     return redirect('authors')
+    def post(self, request):
+        form = PublisherForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            city = form.cleaned_data['city']
+            Publisher.objects.create(name=name, city=city)
+            return HttpResponse("Its OK")
+        return render(request, 'form.html', {'form': form})
+        # Author.objects.create(first_name=first_name, last_name=last_name)
+        # return redirect('authors')
