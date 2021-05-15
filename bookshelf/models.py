@@ -8,3 +8,8 @@ class Author(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Publisher(models.Model):
+    name = models.CharField(max_length=64)
+    city = models.CharField(max_length=64)
