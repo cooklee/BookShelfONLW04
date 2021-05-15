@@ -19,4 +19,3 @@ class Book(models.Model):
     year = models.IntegerField()
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    a = models.IntegerField()
