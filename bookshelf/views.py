@@ -1,4 +1,3 @@
-
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -10,12 +9,24 @@ from django.views.generic.base import View
 from bookshelf.forms import PublisherForm, AuthorForm, BookForm
 from bookshelf.models import Author, Publisher, BookReview, Book
 
+class GetNameMixin:
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        self.set_name(context)
+        return context
+
+    def set_name(self, context):
+        context['object_name']=self.__class__.__name__
+
+
+
 
 class IndexView(View):
 
     def get(self, request):
         zmienna = request.GET.get('pies', '')
-        return render(request, 'base.html', {'z':zmienna})
+        return render(request, 'base.html', {'z': zmienna})
 
 
 class AuthorCreateView(View):
@@ -70,9 +81,15 @@ class BookCreateView(View):
             return redirect('book_list')
         return render(request, 'form.html', {'form': form})
 
+
 class ListBookView(ListView):
     model = Book
+    name = "Book"
     template_name = 'list_view.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        c = super().get_context_data(object_list=None, **kwargs)
+        return c
 
 
 class UpdateBookView(UpdateView):
@@ -81,18 +98,19 @@ class UpdateBookView(UpdateView):
     template_name = 'form.html'
 
     def get_success_url(self):
-        return reverse('update_book', args=(self.object.pk, ))
+        return reverse('update_book', args=(self.object.pk,))
 
 
-
-
-
-class BookReviewCreateView(CreateView):
+class BookReviewCreateView(GetNameMixin, CreateView):
     model = BookReview
     fields = ['book', 'text', 'rate']
     template_name = 'form.html'
     success_url = reverse_lazy('index')
 
-
     def get_success_url(self):
         return reverse('index') + "?pies=reksio"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = self.model.objects.all()
+        return context

@@ -25,7 +25,8 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.title} {self.year} by {self.author}"
+        return f"{self.title} {self.year}"
+
 
     def get_absolute_url(self):
         return reverse("update_book", args=(self.pk,))
@@ -36,5 +37,8 @@ class BookReview(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     text = models.TextField()
     rate = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.date} {self.book.title} {self.text} {self.rate}"
 
 
