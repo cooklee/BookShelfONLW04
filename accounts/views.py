@@ -19,7 +19,8 @@ class LoginView(View):
             user = authenticate(**form.cleaned_data)
             if user is not None:
                 login(request, user)
-                return redirect('index')
+                url = request.GET.get('next', 'index')
+                return redirect(url)
             return render(request, 'form.html', {'form': form, 'message':'wrong login data'})
         return render(request, 'form.html', {'form': form})
 

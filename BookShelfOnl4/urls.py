@@ -29,9 +29,9 @@ urlpatterns = [
     path("book_list/", views.ListBookView.as_view(), name='book_list'),
     path("add_review/", views.BookReviewCreateView.as_view(), name='add_bookreview'),
     ####################################################################################
-    path("login/", accounts_views.LoginView.as_view(), name='login'),
-    path("logout/", accounts_views.LogOutView.as_view(), name='logout'),
-    path("register/", accounts_views.CreateUserView.as_view(), name='register'),
+    path("accounts/login/", accounts_views.LoginView.as_view(), name='login'),
+    path("accounts/logout/", accounts_views.LogOutView.as_view(), name='logout'),
+    path("accounts/register/", accounts_views.CreateUserView.as_view(), name='register'),
 ]
 
 

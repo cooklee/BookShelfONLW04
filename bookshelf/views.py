@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -9,17 +10,16 @@ from django.views.generic.base import View
 from bookshelf.forms import PublisherForm, AuthorForm, BookForm
 from bookshelf.models import Author, Publisher, BookReview, Book
 
+
 class GetNameMixin:
 
-    def get_context_data(self,**kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.set_name(context)
         return context
 
     def set_name(self, context):
-        context['object_name']=self.__class__.__name__
-
-
+        context['object_name'] = self.__class__.__name__
 
 
 class IndexView(View):
@@ -68,7 +68,8 @@ class PublisherCreateView(View):
         return render(request, 'form.html', {'form': form})
 
 
-class BookCreateView(View):
+class BookCreateView(PermissionRequiredMixin, View):
+    permission_required = ['bookshelf.add_book']
 
     def get(self, request):
         form = BookForm()
