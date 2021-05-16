@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block zawartosc %}
-    {{ object_name }}
+    {{ message }}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 from django.urls import reverse
@@ -37,6 +39,7 @@ class BookReview(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     text = models.TextField()
     rate = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.date} {self.book.title} {self.text} {self.rate}"

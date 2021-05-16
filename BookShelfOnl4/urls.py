@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from bookshelf import views
+from accounts import views as accounts_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +28,8 @@ urlpatterns = [
     path("update_book/<int:pk>/", views.UpdateBookView.as_view(), name='update_book'),
     path("book_list/", views.ListBookView.as_view(), name='book_list'),
     path("add_review/", views.BookReviewCreateView.as_view(), name='add_bookreview'),
+    ####################################################################################
+    path("login/", accounts_views.LoginView.as_view(), name='login'),
 ]
+
 
