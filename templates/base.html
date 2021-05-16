@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,9 +11,11 @@
 <body>
 <h1>OJJJJ BOOK SHELF</h1>
 
+<img src="{% static 'obrazki/a.jpg' %}" height="100px">
+
 {% include 'buttons.html' %}
 
-<p>{{ data }}</p>
+<p>{{ data }} {{ z }}</p>
 
 {% block zawartosc %}
     Tu bedzie kawałek kodu który bedzie podmieniany

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from bookshelf.models import Book
+from bookshelf.models import Book, Publisher
 
 
 def check_if_first_is_big(value):
@@ -26,6 +26,11 @@ class AuthorForm(forms.Form):
             raise ValidationError("Hola hola wstrzymaj konie max 6 znaków")
         return data
 
+
+class PublisherModelForm(forms.ModelForm):
+    class Meta:
+        model = Publisher
+        fields = "__all__"
 
 class BookForm(forms.ModelForm):
     class Meta:
