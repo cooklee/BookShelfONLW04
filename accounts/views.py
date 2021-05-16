@@ -51,7 +51,8 @@ class CreateUserView(View):
             # u2.username = username
             # u2.first_name=first_name
             # u2.last_name = last_name
-            # u2.set_passw
+            # u2.set_password(password)
+            # u2.save()
             return redirect('login')
         return render(request, 'form.html', {'form': form})
 
