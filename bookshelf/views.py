@@ -25,8 +25,8 @@ class GetNameMixin:
 class IndexView(View):
 
     def get(self, request):
-        zmienna = request.GET.get('pies', '')
-        return render(request, 'base.html', {'z': zmienna})
+        massage = request.GET.get('message', '')
+        return render(request, 'base.html', {'message': massage})
 
 
 class AuthorCreateView(View):

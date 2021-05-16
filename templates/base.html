@@ -9,7 +9,15 @@
     <title>Document</title>
 </head>
 <body>
-<h1>OJJJJ BOOK SHELF {{ user.username }}</h1>
+<h1>OJJJJ BOOK SHELF </h1>
+<p>{{ message }}</p>
+{% if user.is_authenticated %}
+    <p>Siema {{ user.username}}</p>
+    <p><a href="{% url 'logout' %}">wyloguj</a></p>
+{% else %}
+    <a href="{% url 'login' %}">zaloguj</a>
+    <a href="{% url 'register' %}">załóż</a>
+{% endif %}
 
 <img src="{% static 'obrazki/a.jpg' %}" height="100px">
 
